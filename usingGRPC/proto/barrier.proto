@@ -1,0 +1,16 @@
+syntax = "proto3";
+package barrier;
+
+
+service Barrier {
+    rpc wait(BarrierRequest) returns (BarrierResponse);
+}
+
+message BarrierRequest {
+  int32 rank = 1;
+  int32 barrier_count = 2;
+}
+
+message BarrierResponse {
+  bool arrived = 1;
+}
