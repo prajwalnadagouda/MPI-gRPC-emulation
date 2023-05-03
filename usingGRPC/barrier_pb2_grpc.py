@@ -14,6 +14,11 @@ class BarrierStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.task = channel.unary_unary(
+                '/barrier.Barrier/task',
+                request_serializer=barrier__pb2.TaskRequest.SerializeToString,
+                response_deserializer=barrier__pb2.TaskResponse.FromString,
+                )
         self.wait = channel.unary_unary(
                 '/barrier.Barrier/wait',
                 request_serializer=barrier__pb2.BarrierRequest.SerializeToString,
@@ -24,6 +29,12 @@ class BarrierStub(object):
 class BarrierServicer(object):
     """Missing associated documentation comment in .proto file."""
 
+    def task(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def wait(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -33,6 +44,11 @@ class BarrierServicer(object):
 
 def add_BarrierServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'task': grpc.unary_unary_rpc_method_handler(
+                    servicer.task,
+                    request_deserializer=barrier__pb2.TaskRequest.FromString,
+                    response_serializer=barrier__pb2.TaskResponse.SerializeToString,
+            ),
             'wait': grpc.unary_unary_rpc_method_handler(
                     servicer.wait,
                     request_deserializer=barrier__pb2.BarrierRequest.FromString,
@@ -47,6 +63,23 @@ def add_BarrierServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class Barrier(object):
     """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def task(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/barrier.Barrier/task',
+            barrier__pb2.TaskRequest.SerializeToString,
+            barrier__pb2.TaskResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def wait(request,

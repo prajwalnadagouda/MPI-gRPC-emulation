@@ -3,14 +3,26 @@ package barrier;
 
 
 service Barrier {
+    rpc task(TaskRequest) returns (TaskResponse);
     rpc wait(BarrierRequest) returns (BarrierResponse);
 }
 
 message BarrierRequest {
   int32 rank = 1;
   int32 barrier_count = 2;
+  repeated uint64 ranklist =3;
 }
 
 message BarrierResponse {
+  bool arrived = 1;
+}
+
+message TaskRequest {
+  int32 rank = 1;
+  int32 barrier_count = 2;
+  string message=3;
+}
+
+message TaskResponse {
   bool arrived = 1;
 }

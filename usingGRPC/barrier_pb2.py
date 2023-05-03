@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rbarrier.proto\x12\x07\x62\x61rrier\"5\n\x0e\x42\x61rrierRequest\x12\x0c\n\x04rank\x18\x01 \x01(\x05\x12\x15\n\rbarrier_count\x18\x02 \x01(\x05\"\"\n\x0f\x42\x61rrierResponse\x12\x0f\n\x07\x61rrived\x18\x01 \x01(\x08\x32\x44\n\x07\x42\x61rrier\x12\x39\n\x04wait\x12\x17.barrier.BarrierRequest\x1a\x18.barrier.BarrierResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rbarrier.proto\x12\x07\x62\x61rrier\"G\n\x0e\x42\x61rrierRequest\x12\x0c\n\x04rank\x18\x01 \x01(\x05\x12\x15\n\rbarrier_count\x18\x02 \x01(\x05\x12\x10\n\x08ranklist\x18\x03 \x03(\x04\"\"\n\x0f\x42\x61rrierResponse\x12\x0f\n\x07\x61rrived\x18\x01 \x01(\x08\"C\n\x0bTaskRequest\x12\x0c\n\x04rank\x18\x01 \x01(\x05\x12\x15\n\rbarrier_count\x18\x02 \x01(\x05\x12\x0f\n\x07message\x18\x03 \x01(\t\"\x1f\n\x0cTaskResponse\x12\x0f\n\x07\x61rrived\x18\x01 \x01(\x08\x32y\n\x07\x42\x61rrier\x12\x33\n\x04task\x12\x14.barrier.TaskRequest\x1a\x15.barrier.TaskResponse\x12\x39\n\x04wait\x12\x17.barrier.BarrierRequest\x1a\x18.barrier.BarrierResponseb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'barrier_pb2', globals())
@@ -21,9 +21,13 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   _BARRIERREQUEST._serialized_start=26
-  _BARRIERREQUEST._serialized_end=79
-  _BARRIERRESPONSE._serialized_start=81
-  _BARRIERRESPONSE._serialized_end=115
-  _BARRIER._serialized_start=117
-  _BARRIER._serialized_end=185
+  _BARRIERREQUEST._serialized_end=97
+  _BARRIERRESPONSE._serialized_start=99
+  _BARRIERRESPONSE._serialized_end=133
+  _TASKREQUEST._serialized_start=135
+  _TASKREQUEST._serialized_end=202
+  _TASKRESPONSE._serialized_start=204
+  _TASKRESPONSE._serialized_end=235
+  _BARRIER._serialized_start=237
+  _BARRIER._serialized_end=358
 # @@protoc_insertion_point(module_scope)
