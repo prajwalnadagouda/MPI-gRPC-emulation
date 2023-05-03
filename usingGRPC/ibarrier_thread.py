@@ -42,7 +42,7 @@ class Barrier(barrier_pb2_grpc.BarrierServicer):
         with grpc.insecure_channel('localhost:'+str(4001+ranklist[index])) as channel:
             stub = barrier_pb2_grpc.BarrierStub(channel)
             argument=barrier_pb2.BarrierRequest()
-            argument.rank=ranklist[0]
+            argument.rank=index
             argument.barrier_count=length-index
             processlist=ranklist[index:]
             argument.ranklist.extend(processlist)
@@ -55,7 +55,7 @@ class Barrier(barrier_pb2_grpc.BarrierServicer):
         while LOCK:
             time.sleep(2)
             pass
-        printstatement="BARRIER:GOT sync "+"on "+str(request.ranklist[0])+" by "+str(request.rank)+"\n"
+        printstatement="BARRIER:GOT sync "+" on "+str(request.ranklist[0])+"\n"
         print(colored(printstatement,"red"))
         length=len(request.ranklist)
         if(length==1):

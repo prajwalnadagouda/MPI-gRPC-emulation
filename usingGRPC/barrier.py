@@ -43,7 +43,7 @@ def main(thread_count):
     print('-' * term_size.columns)
 
 
-    #assign task1
+    #assign task A
     for process_rank in range(thread_count):
         task1=threading.Thread(target=run_tasks,args=([process_rank,thread_count,"TASK A"]) )
         task1.start()
@@ -55,11 +55,10 @@ def main(thread_count):
     print("Barrier Implemented")
     print('-' * term_size.columns)
 
-    #Assign task2
+    #Assign task B
     for process_rank in range(thread_count):
         task2=threading.Thread(target=run_tasks,args=([process_rank,thread_count,"TASK B"]) )
         task2.start()
-
 
     sleep(30)
     #end connections

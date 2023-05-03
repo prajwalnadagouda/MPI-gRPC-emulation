@@ -10,15 +10,25 @@ import os
 
 
 
-def run_tasks(process_rank,process_count):
-    with grpc.insecure_channel('localhost:'+str(4000+process_rank)) as channel:
+def run_tasks(process_rank,process_count,task_message):
+    with grpc.insecure_channel('localhost:'+str(4000+process_rank+1)) as channel:
         stub = barrier_pb2_grpc.BarrierStub(channel)
-        req= barrier_pb2.BarrierRequest(rank=process_rank,barrier_count=process_count)
-        response= stub.wait(req)
-        print("response for rank",process_rank,response.arrived)
+        req= barrier_pb2.TaskRequest(rank=process_rank,barrier_count=process_count,message=str(task_message))
+        response= stub.task(req)
+        # print("Main:task response for rank",process_rank,response.arrived)
 
-def run_barrier():
-    pass
+def run_barrier(thread_count):
+    with grpc.insecure_channel('localhost:'+str(4001)) as channel:
+        stub = barrier_pb2_grpc.BarrierStub(channel)
+        argument=barrier_pb2.BarrierRequest()
+        argument.rank=0
+        argument.barrier_count=thread_count
+        processlist=[]
+        for i in range(thread_count):
+            processlist.append(i)
+        argument.ranklist.extend(processlist)
+        response= stub.wait(argument)
+        # print("Main:response for rank-",response.arrived)
 
 def main(thread_count):
     term_size = os.get_terminal_size()
@@ -33,22 +43,25 @@ def main(thread_count):
     print('-' * term_size.columns)
 
 
-    #assign task1
+    #assign task A
     for process_rank in range(thread_count):
-        task1=threading.Thread(target=run_tasks,args=([process_rank+1,thread_count]) )
+        task1=threading.Thread(target=run_tasks,args=([process_rank,thread_count,"TASK A"]) )
         task1.start()
 
     #Barrier Invoked
-    run_barrier()
+    print("Calling Barrier")
+    run_barrier(thread_count)
+    print('-' * term_size.columns)
+    print("Barrier Implemented")
+    print('-' * term_size.columns)
 
-    #Assign task2
+    #Assign task B
     for process_rank in range(thread_count):
-        task2=threading.Thread(target=run_tasks,args=([process_rank+1,thread_count]) )
+        task2=threading.Thread(target=run_tasks,args=([process_rank,thread_count,"TASK B"]) )
         task2.start()
 
-
+    sleep(30)
     #end connections
-    sleep(2)
     print('-' * term_size.columns)
     for process_rank in range(thread_count):
         x=threading.Thread(target=barrier_thread.close,args=() )
