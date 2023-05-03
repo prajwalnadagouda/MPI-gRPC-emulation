@@ -49,10 +49,19 @@ def main(thread_count):
         task1.start()
 
     #Barrier Invoked
-    print("Calling Barrier")
-    run_barrier(thread_count)
+    print("Calling Ibarrier")
+    waittask=threading.Thread(target=run_barrier,args=([thread_count]) )
+    waittask.start()
+   
+
+    #Assign computation between task A and B
+    for process_rank in range(thread_count):
+        task2=threading.Thread(target=run_tasks,args=([process_rank,thread_count,"Task between A&B"]) )
+        task2.start()
+    
+    waittask.join()
     print('-' * term_size.columns)
-    print("Barrier Implemented")
+    print("Ibarrier Wait Enforced Here")
     print('-' * term_size.columns)
 
     #Assign task B
@@ -60,7 +69,11 @@ def main(thread_count):
         task2=threading.Thread(target=run_tasks,args=([process_rank,thread_count,"TASK B"]) )
         task2.start()
 
+
     sleep(30)
+    print('-' * term_size.columns)
+    print("END")
+    print('-' * term_size.columns)
     #end connections
     print('-' * term_size.columns)
     for process_rank in range(thread_count):

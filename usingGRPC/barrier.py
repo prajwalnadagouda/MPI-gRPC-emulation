@@ -61,6 +61,9 @@ def main(thread_count):
         task2.start()
 
     sleep(30)
+    print('-' * term_size.columns)
+    print("END")
+    print('-' * term_size.columns)
     #end connections
     print('-' * term_size.columns)
     for process_rank in range(thread_count):

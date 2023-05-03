@@ -4,10 +4,8 @@ import barrier_pb2
 from concurrent import futures
 import sys
 
-import time
-import threading 
+import time 
 from random import randrange
-from sys import stdout
 LOCK=1
 
 from termcolor import colored
@@ -21,10 +19,10 @@ class Barrier(barrier_pb2_grpc.BarrierServicer):
         global LOCK
         LOCK=1
         printstatement="TASK:GOT task-"+request.message+" on "+str(request.rank)+"\n"
-        print(colored(printstatement,"green"))
-        time.sleep(randrange(4,10)) #assign random runtime
-        printstatement="TASK:DONE task-"+request.message+" on "+str(request.rank)+"\n"
         print(colored(printstatement,"blue"))
+        time.sleep(randrange(2,6)) #assign random runtime
+        printstatement="TASK:DONE task-"+request.message+" on "+str(request.rank)+"\n"
+        print(colored(printstatement,"green"))
         time.sleep(2)
         LOCK=0
         return barrier_pb2.TaskResponse(arrived=False)
@@ -56,7 +54,7 @@ class Barrier(barrier_pb2_grpc.BarrierServicer):
             time.sleep(2)
             pass
         printstatement="BARRIER:GOT sync "+"on "+str(request.ranklist[0])+" by "+str(request.rank)+"\n"
-        print(colored(printstatement,"red"))
+        print(colored(printstatement,"yellow"))
         length=len(request.ranklist)
         if(length==1):
             return barrier_pb2.BarrierResponse(arrived=True)
