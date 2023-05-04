@@ -19,8 +19,8 @@ class Barrier(barrier_pb2_grpc.BarrierServicer):
         global LOCK
         LOCK=1
         printstatement="TASK:GOT task-"+request.message+" on "+str(request.rank)+"\n"
-        print(colored(printstatement,"blue"))
-        time.sleep(randrange(2,6)) #assign random runtime
+        print(colored(printstatement,"red"))
+        time.sleep(randrange(4,6)) #assign random runtime
         printstatement="TASK:DONE task-"+request.message+" on "+str(request.rank)+"\n"
         print(colored(printstatement,"green"))
         time.sleep(2)

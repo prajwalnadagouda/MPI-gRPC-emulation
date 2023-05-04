@@ -60,15 +60,17 @@ def main(thread_count):
         task2=threading.Thread(target=run_tasks,args=([process_rank,thread_count,"TASK B"]) )
         task2.start()
 
-    sleep(30)
+
+    #Time before ending all processes
+    sleep(10)
     print('-' * term_size.columns)
     print("END")
     print('-' * term_size.columns)
     #end connections
     print('-' * term_size.columns)
-    for process_rank in range(thread_count):
-        x=threading.Thread(target=barrier_thread.close,args=() )
-        x.start()
+    # for process_rank in range(thread_count):
+    #     x=threading.Thread(target=barrier_thread.close,args=() )
+    #     x.start()
 
 
     

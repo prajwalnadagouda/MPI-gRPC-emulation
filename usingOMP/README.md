@@ -1,8 +1,8 @@
-Barrier:
+To Run Barrier:
 chmod +x barrier.sh
 ./barrier.sh 
 
 
-Ibarrier:
+To Run Ibarrier:
 chmod +x ibarrier.sh
 ./ibarrier.sh 

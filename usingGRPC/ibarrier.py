@@ -70,15 +70,15 @@ def main(thread_count):
         task2.start()
 
 
-    sleep(30)
+    sleep(10)
     print('-' * term_size.columns)
     print("END")
     print('-' * term_size.columns)
     #end connections
-    print('-' * term_size.columns)
-    for process_rank in range(thread_count):
-        x=threading.Thread(target=barrier_thread.close,args=() )
-        x.start()
+    # print('-' * term_size.columns)
+    # for process_rank in range(thread_count):
+    #     x=threading.Thread(target=barrier_thread.close,args=() )
+    #     x.start()
 
 
     
